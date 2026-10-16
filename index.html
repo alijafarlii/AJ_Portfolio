@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AJ | Full-Stack Developer & Tech Enthusiast</title>
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        darkbg: '#0D0D0F',
+                        darkcard: '#141419',
+                        darkborder: '#262630',
+                        electric: {
+                            400: '#C084FC',
+                            500: '#A855F7',
+                            600: '#9333EA',
+                            700: '#7E22CE',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Custom External Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="relative min-h-screen bg-grid-pattern selection:bg-electric-500 selection:text-white">
+
+    <!-- Interactive Canvas Particle Background -->
+    <canvas id="bg-canvas"></canvas>
+
+    <!-- Top Navigation Bar -->
+    <header class="sticky top-0 z-50 w-full backdrop-blur-md bg-[#0D0D0F]/80 border-b border-white/5 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- AJ Logo Monogram -->
+            <a href="#home" class="group flex items-center gap-3">
+                <div class="relative w-11 h-11 rounded-xl bg-gradient-to-br from-electric-500 to-electric-700 flex items-center justify-center p-[1px] shadow-lg shadow-electric-500/20 group-hover:shadow-electric-500/40 transition-all duration-300">
+                    <div class="w-full h-full bg-darkbg rounded-[11px] flex items-center justify-center">
+                        <svg class="w-7 h-7 text-white group-hover:text-electric-400 transition-colors duration-300" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M25 75 L45 25 L58 25 L75 75 M32 58 L68 58" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M68 40 L68 70 C68 80, 58 85, 48 82" stroke="#A855F7" stroke-width="8" stroke-linecap="round" fill="none"/>
+                        </svg>
+                    </div>
+                </div>
+                <span class="text-xl font-bold tracking-wider text-white font-mono-code">AJ<span class="text-electric-500">.dev</span></span>
+            </a>
+
+            <!-- Desktop Navigation Links -->
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium">
+                <a href="#home" class="text-gray-300 hover:text-electric-400 transition-colors py-1 relative border-b-2 border-transparent hover:border-electric-500">Home</a>
+                <a href="#about" class="text-gray-300 hover:text-electric-400 transition-colors py-1 relative border-b-2 border-transparent hover:border-electric-500">About</a>
+                <a href="#projects" class="text-gray-300 hover:text-electric-400 transition-colors py-1 relative border-b-2 border-transparent hover:border-electric-500">Projects</a>
+                <a href="#contact" class="text-gray-300 hover:text-electric-400 transition-colors py-1 relative border-b-2 border-transparent hover:border-electric-500 ">Contact</a>
+            </nav>
+
+            <!-- Action Button & Mobile Menu Toggle -->
+            <div class="flex items-center gap-4">
+                <a href="#contact" class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-semibold uppercase tracking-wider text-white bg-electric-600 hover:bg-electric-500 hover-glow transition-all">
+                    <span>Hire Me</span>
+                    <i class="fa-solid fa-arrow-right text-xs"></i>
+                </a>
+                
+                <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg bg-darkcard text-gray-300 hover:text-white border border-darkborder focus:outline-none">
+                    <i class="fa-solid fa-bars text-xl" id="menu-icon"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Drawer -->
+        <div id="mobile-menu" class="hidden md:hidden bg-darkbg/95 border-b border-darkborder px-4 pt-2 pb-6 space-y-3 font-medium backdrop-blur-xl">
+            <a href="#home" class="mobile-link block py-2 text-gray-300 hover:text-electric-400 border-b border-darkborder/50">Home</a>
+            <a href="#about" class="mobile-link block py-2 text-gray-300 hover:text-electric-400 border-b border-darkborder/50">About</a>
+            <a href="#projects" class="mobile-link block py-2 text-gray-300 hover:text-electric-400 border-b border-darkborder/50">Projects</a>
+            <a href="#contact" class="mobile-link block py-2 text-gray-300 hover:text-electric-400">Contact</a>
+        </div>
+    </header>
+
+    <main class="relative z-10">
+
+        <!-- HERO SECTION -->
+        <section id="home" class="min-h-[calc(100vh-5rem)] flex items-center justify-center px-4 sm:px-6 lg:px-8 py-16 relative overflow-hidden">
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-electric-600/15 rounded-full blur-[120px] pointer-events-none"></div>
+
+            <div class="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <div class="lg:col-span-7 space-y-8 text-left">
+                    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-electric-500/10 border border-electric-500/30 text-electric-400 text-xs font-mono-code">
+                        <span class="w-2 h-2 rounded-full bg-electric-400 animate-ping"></span>
+                        <span>Available for projects & opportunities</span>
+                    </div>
+
+                    <div class="space-y-4">
+                        <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight">
+                            Hey, I'm <span class="text-gradient">AJ</span>.
+                        </h1>
+                        <h2 class="text-xl sm:text-2xl text-gray-400 font-medium font-mono-code h-8">
+                            <span id="typed-text"></span><span class="text-electric-500 animate-pulse">|</span>
+                        </h2>
+                    </div>
+
+                    <p class="text-gray-400 text-base sm:text-lg max-w-2xl leading-relaxed">
+                        I build high-performance web applications, craft slick UI/UX interfaces, and turn complex ideas into clean, functional code.
+                    </p>
+
+                    <div class="flex flex-wrap items-center gap-4 pt-2">
+                        <a href="#projects" class="px-6 py-3.5 rounded-xl bg-electric-600 hover:bg-electric-500 text-white font-semibold text-sm hover-glow flex items-center gap-2 transition-all">
+                            <i class="fa-solid fa-code text-xs"></i>
+                            <span>View Projects</span>
+                        </a>
+                        <a href="#contact" class="px-6 py-3.5 rounded-xl bg-darkcard hover:bg-darkborder text-gray-200 border border-darkborder hover:border-electric-500/50 font-semibold text-sm transition-all flex items-center gap-2">
+                            <i class="fa-regular fa-envelope text-xs"></i>
+                            <span>Contact Me</span>
+                        </a>
+                    </div>
+
+                    <div class="pt-6 flex items-center gap-5 text-gray-400">
+                        <span class="text-xs uppercase tracking-widest text-gray-500 font-mono-code">Connect:</span>
+                        <a href="https://github.com/alijafarlii" target="_blank" class="hover:text-electric-400 transition-colors text-lg"><i class="fa-brands fa-github"></i></a>
+                        <a href="https://www.linkedin.com/in/ali-jafarli-b301503b7/?isSelfProfile=false" target="_blank" class="hover:text-electric-400 transition-colors text-lg"><i class="fa-brands fa-linkedin"></i></a>
+                        <a href="https://www.instagram.com/alijafarli1/?hl=en" target="_blank" class="hover:text-electric-400 transition-colors text-lg"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="https://discord.com/users/954702459832512633" target="_blank" class="hover:text-electric-400 transition-colors text-lg"><i class="fa-brands fa-discord"></i></a>
+                    </div>
+                </div>
+
+                <!-- Terminal Hero Box -->
+                <div class="lg:col-span-5 w-full">
+                    <div class="rounded-2xl bg-darkcard border border-darkborder shadow-2xl overflow-hidden font-mono-code text-xs sm:text-sm animate-float-custom">
+                        <div class="bg-[#18181F] px-4 py-3 border-b border-darkborder flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
+                                <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
+                                <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
+                            </div>
+                            <span class="text-gray-500 text-xs">developer_bio.js</span>
+                            <i class="fa-solid fa-terminal text-gray-500"></i>
+                        </div>
+                        
+                        <div class="p-5 space-y-2 text-gray-300 leading-relaxed overflow-x-auto">
+                            <div><span class="text-electric-400">const</span> <span class="text-yellow-400">developer</span> = {</div>
+                            <div class="pl-4"><span class="text-purple-300">name</span>: <span class="text-green-400">'AJ'</span>,</div>
+                            <div class="pl-4"><span class="text-purple-300">role</span>: <span class="text-green-400">'Full-Stack Engineer'</span>,</div>
+                            <div class="pl-4"><span class="text-purple-300">status</span>: <span class="text-green-400">'Ready to Build'</span>,</div>
+                            <div class="pl-4"><span class="text-purple-300">stack</span>: [<span class="text-green-400">'React'</span>, <span class="text-green-400">'HTML/CSS'</span>, <span class="text-green-400">'JavaScript'</span>, <span class="text-green-400">'Python'</span>],</div>
+                            <div class="pl-4"><span class="text-purple-300">passions</span>: [<span class="text-green-400">'Gaming'</span>, <span class="text-green-400">'Clean Code'</span>, <span class="text-green-400">'UI Aesthetics'</span>],</div>
+                            <div class="pl-4"><span class="text-purple-300">getFuel</span>: () =&gt; <span class="text-green-400">'☕ Coffee & High FPS'</span></div>
+                            <div>};</div>
+                            <div class="pt-2 text-gray-500">// Run profile initialization</div>
+                            <div><span class="text-electric-400">console</span>.<span class="text-blue-400">log</span>(developer.<span class="text-yellow-400">getFuel</span>());</div>
+                            <div class="text-green-400 flex items-center gap-1 pt-1">
+                                <span>&gt; ☕ Coffee & High FPS</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ABOUT SECTION -->
+        <section id="about" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+            <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+                <h2 class="text-xs font-mono-code text-electric-400 uppercase tracking-widest">// 01. ABOUT ME</h2>
+                <p class="text-3xl sm:text-4xl font-bold text-white">My Information</p>
+                <div class="w-16 h-1 bg-electric-500 mx-auto rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                
+                <div class="lg:col-span-6 glass-panel rounded-2xl p-8 space-y-6">
+                    <h3 class="text-2xl font-bold text-white flex items-center gap-3">
+                        <i class="fa-solid fa-user-astronaut text-electric-400"></i>
+                        <span>Who am I?</span>
+                    </h3>
+                    <p class="text-gray-300 leading-relaxed">
+                        Hey! I'm AJ, a full-stack developer with a passion for building high-performance web applications and crafting intuitive user experiences. With a strong foundation in JavaScript, React, Node.js, and Python, I enjoy turning complex problems into elegant solutions.
+                    </p>
+                    <p class="text-gray-300 leading-relaxed">
+                        When I'm not writing code or debugging applications, you'll usually find me competing in tactical shooters, exploring open-world games, or doing homework. :3
+                    </p>
+
+                    <div class="pt-4 border-t border-darkborder flex flex-wrap gap-2">
+                        <span class="px-3 py-1.5 rounded-lg bg-electric-500/10 border border-electric-500/20 text-electric-300 text-xs font-mono-code"><i class="fa-solid fa-gamepad mr-1"></i> Competitive Gaming</span>
+                        <span class="px-3 py-1.5 rounded-lg bg-electric-500/10 border border-electric-500/20 text-electric-300 text-xs font-mono-code"><i class="fa-solid fa-palette mr-1"></i> Dark Mode UI</span>
+                        <span class="px-3 py-1.5 rounded-lg bg-electric-500/10 border border-electric-500/20 text-electric-300 text-xs font-mono-code"><i class="fa-solid fa-bolt mr-1"></i> Web Performance</span>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-6 glass-panel rounded-2xl p-8 space-y-6">
+                    <h3 class="text-2xl font-bold text-white flex items-center gap-3">
+                        <i class="fa-solid fa-code text-electric-400"></i>
+                        <span>Tech & Competencies</span>
+                    </h3>
+
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between text-xs font-mono-code mb-1">
+                                <span class="text-gray-300">JavaScript</span>
+                                <span class="text-electric-400">90%</span>
+                            </div>
+                            <div class="w-full h-2.5 bg-darkborder rounded-full overflow-hidden">
+                                <div class="h-full bg-gradient-to-r from-electric-600 to-electric-400 rounded-full" style="width: 90%;"></div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between text-xs font-mono-code mb-1">
+                                <span class="text-gray-300">HTML / CSS </span>
+                                <span class="text-electric-400">95%</span>
+                            </div>
+                            <div class="w-full h-2.5 bg-darkborder rounded-full overflow-hidden">
+                                <div class="h-full bg-gradient-to-r from-electric-600 to-electric-400 rounded-full" style="width: 95%;"></div>
+                            </div>
+                        </div>
+
+
+
+                        <div>
+                            <div class="flex justify-between text-xs font-mono-code mb-1">
+                                <span class="text-gray-300">Python</span>
+                                <span class="text-electric-400">75%</span>
+                            </div>
+                            <div class="w-full h-2.5 bg-darkborder rounded-full overflow-hidden">
+                                <div class="h-full bg-gradient-to-r from-electric-600 to-electric-400 rounded-full" style="width: 75%;"></div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between text-xs font-mono-code mb-1">
+                                <span class="text-gray-300">UI</span>
+                                <span class="text-electric-400">85%</span>
+                            </div>
+                            <div class="w-full h-2.5 bg-darkborder rounded-full overflow-hidden">
+                                <div class="h-full bg-gradient-to-r from-electric-600 to-electric-400 rounded-full" style="width: 85%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- PROJECTS SECTION -->
+        <section id="projects" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+            <div class="text-center max-w-3xl mx-auto mb-12 space-y-4">
+                <h2 class="text-xs font-mono-code text-electric-400 uppercase tracking-widest">// 02. FEATURED WORK</h2>
+                <p class="text-3xl sm:text-4xl font-bold text-white">Featured Projects.</p>
+                <div class="w-16 h-1 bg-electric-500 mx-auto rounded-full"></div>
+            </div>
+
+            <div class="flex justify-center flex-wrap gap-2 mb-12" id="project-filters">
+                <button data-filter="all" class="filter-btn px-5 py-2 rounded-xl text-xs font-mono-code bg-electric-600 text-white border border-electric-500 transition-all">All Projects</button>
+                <button data-filter="web" class="filter-btn px-5 py-2 rounded-xl text-xs font-mono-code bg-darkcard text-gray-400 hover:text-white border border-darkborder hover:border-electric-500/40 transition-all">Web Sites</button>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="projects-grid">
+
+                <div class="project-card glass-panel rounded-2xl overflow-hidden flex flex-col group transition-all duration-300" data-category="web">
+                    <div class="relative h-48 bg-darkbg overflow-hidden flex items-center justify-center border-b border-darkborder">
+                        <div class="absolute inset-0 bg-gradient-to-tr from-electric-600/30 to-transparent">
+                            <img style="width: 100%; height: 100%; object-fit: cover;" src="Screenshot 2026-10-15 222322.png" alt="">
+                        </div>
+                        <span class="absolute top-3 right-3 px-2.5 py-1 rounded-full text-[10px] font-mono-code uppercase tracking-wider bg-electric-500/20 border border-electric-500/40 text-electric-300">Web Site</span>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
+                        <div>
+                            <h3 class="text-xl font-bold text-white group-hover:text-electric-400 transition-colors">iSpace.az</h3>
+                            <p class="text-gray-400 text-sm mt-2 leading-relaxed">A real copy of the iSpace.az website. Build step by step. My final project for Div Academy Kids.</p>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="flex flex-wrap gap-2 text-xs font-mono-code">
+                                <span class="px-2.5 py-1 rounded bg-darkbg text-gray-300 border border-darkborder">HTML/CSS</span>
+                                <span class="px-2.5 py-1 rounded bg-darkbg text-gray-300 border border-darkborder">Django</span>
+                            </div>
+                            <div class="flex items-center gap-4 pt-2 border-t border-darkborder/60">
+                                <a href="https://github.com/alijafarlii/iSpace-FinalProject" class="text-xs font-semibold text-gray-300 hover:text-electric-400 flex items-center gap-1.5 transition-colors">
+                                    <i class="fa-brands fa-github"></i> Source Code
+                                </a>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card glass-panel rounded-2xl overflow-hidden flex flex-col group transition-all duration-300" data-category="web">
+                    <div class="relative h-48 bg-darkbg overflow-hidden flex items-center justify-center border-b border-darkborder">
+                        <div class="absolute inset-0 bg-gradient-to-tr from-electric-600/30 to-transparent">
+                            <img style="width: 100%; height: 100%; object-fit: cover;" src="Screenshot 2026-10-15 182359.png" alt="">
+                        </div>
+                        <span class="absolute top-3 right-3 px-2.5 py-1 rounded-full text-[10px] font-mono-code uppercase tracking-wider bg-electric-500/20 border border-electric-500/40 text-electric-300">Web Site</span>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
+                        <div>
+                            <h3 class="text-xl font-bold text-white group-hover:text-electric-400 transition-colors">tedspace.ai</h3>
+                            <p class="text-gray-400 text-sm mt-2 leading-relaxed">Real version of the tedspace.ai website. Little bit of design made by me. :3</p>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="flex flex-wrap gap-2 text-xs font-mono-code">
+                                <span class="px-2.5 py-1 rounded bg-darkbg text-gray-300 border border-darkborder">HTML/CSS</span>
+                            </div>
+                            <div class="flex items-center gap-4 pt-2 border-t border-darkborder/60">
+                                <a href="https://github.com/alijafarlii/tedspace-new" class="text-xs font-semibold text-gray-300 hover:text-electric-400 flex items-center gap-1.5 transition-colors">
+                                    <i class="fa-brands fa-github"></i> Source Code
+                                </a>
+                             
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                
+
+           
+
+         
+
+            </div>
+        </section>
+
+        <!-- CONTACT SECTION -->
+        <section id="contact" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+            <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+                <h2 class="text-xs font-mono-code text-electric-400 uppercase tracking-widest">// 03. CONTACT</h2>
+                <p class="text-3xl sm:text-4xl font-bold text-white">Let's Build Something Cool</p>
+                <div class="w-16 h-1 bg-electric-500 mx-auto rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+                
+                <div class="lg:col-span-5 space-y-8">
+                    <div class="glass-panel p-8 rounded-2xl space-y-6">
+                        <h3 class="text-xl font-bold text-white">Get in Touch</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed">
+                            Whether you have a question about a project, want to collaborate on software, or simply want to chat gaming and tech, drop me a message!
+                        </p>
+
+                        <div class="space-y-4 text-sm">
+                            <div class="flex items-center gap-4 text-gray-300">
+                                <div class="w-10 h-10 rounded-xl bg-electric-500/10 border border-electric-500/30 flex items-center justify-center text-electric-400 shrink-0">
+                                    <i class="fa-regular fa-envelope"></i>
+                                </div>
+                                <div>
+                                    <span class="block text-xs text-gray-500 font-mono-code">EMAIL</span>
+                                    <span class="font-medium text-white">ali.jafarly.025@gmail.com</span>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center gap-4 text-gray-300">
+                                <div class="w-10 h-10 rounded-xl bg-electric-500/10 border border-electric-500/30 flex items-center justify-center text-electric-400 shrink-0">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                </div>
+                                <div>
+                                    <span class="block text-xs text-gray-500 font-mono-code">LOCATION</span>
+                                    <span class="font-medium text-white">Private</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="pt-6 border-t border-darkborder space-y-3">
+                            <span class="block text-xs text-gray-500 font-mono-code">SOCIAL PROFILES</span>
+                            <div class="flex gap-3">
+                                <a href="https://github.com/alijafarlii" class="w-10 h-10 rounded-lg bg-darkcard border border-darkborder hover:border-electric-500 flex items-center justify-center text-gray-300 hover:text-electric-400 transition-all"><i class="fa-brands fa-github"></i></a>
+                                <a href="https://www.linkedin.com/in/ali-jafarli-b301503b7/?isSelfProfile=false" class="w-10 h-10 rounded-lg bg-darkcard border border-darkborder hover:border-electric-500 flex items-center justify-center text-gray-300 hover:text-electric-400 transition-all"><i class="fa-brands fa-linkedin"></i></a>
+                                <a href="https://www.instagram.com/alijafarli1/?hl=en" class="w-10 h-10 rounded-lg bg-darkcard border border-darkborder hover:border-electric-500 flex items-center justify-center text-gray-300 hover:text-electric-400 transition-all"><i class="fa-brands fa-instagram"></i></a>
+                                <a href="https://discord.com/users/954702459832512633" class="w-10 h-10 rounded-lg bg-darkcard border border-darkborder hover:border-electric-500 flex items-center justify-center text-gray-300 hover:text-electric-400 transition-all"><i class="fa-brands fa-discord"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-7 glass-panel p-8 rounded-2xl">
+                    <form id="contact-form" class="space-y-6">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <div>
+                                <label for="name" class="block text-xs font-mono-code text-gray-400 mb-2">YOUR NAME</label>
+                                <input type="text" id="name" required placeholder="John Smith" class="w-full px-4 py-3 rounded-xl bg-darkbg border border-darkborder focus:border-electric-500 focus:outline-none text-white text-sm transition-colors">
+                            </div>
+                            <div>
+                                <label for="email" class="block text-xs font-mono-code text-gray-400 mb-2">YOUR EMAIL</label>
+                                <input type="email" id="email" required placeholder="john@example.com" class="w-full px-4 py-3 rounded-xl bg-darkbg border border-darkborder focus:border-electric-500 focus:outline-none text-white text-sm transition-colors">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="subject" class="block text-xs font-mono-code text-gray-400 mb-2">SUBJECT</label>
+                            <input type="text" id="subject" required placeholder="Project Collaboration" class="w-full px-4 py-3 rounded-xl bg-darkbg border border-darkborder focus:border-electric-500 focus:outline-none text-white text-sm transition-colors">
+                        </div>
+
+                        <div>
+                            <label for="message" class="block text-xs font-mono-code text-gray-400 mb-2">MESSAGE</label>
+                            <textarea id="message" rows="5" required placeholder="Hey AJ, I'd like to talk about..." class="w-full px-4 py-3 rounded-xl bg-darkbg border border-darkborder focus:border-electric-500 focus:outline-none text-white text-sm transition-colors resize-none"></textarea>
+                        </div>
+
+                        <button type="submit" class="w-full py-4 rounded-xl bg-electric-600 hover:bg-electric-500 text-white font-semibold text-sm hover-glow transition-all flex items-center justify-center gap-2">
+                            <i class="fa-regular fa-paper-plane"></i>
+                            <span>Send Message</span>
+                        </button>
+                    </form>
+
+                    <div id="form-feedback" class="hidden mt-4 p-4 rounded-xl bg-electric-500/20 border border-electric-500/40 text-electric-300 text-center text-sm font-mono-code">
+                        <i class="fa-solid fa-circle-check mr-2"></i> Message sent successfully! Thanks for reaching out.
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="border-t border-darkborder bg-[#09090B] py-8 text-center text-xs text-gray-500 font-mono-code relative z-10">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p>&copy; <span id="year"></span> AJ. All rights reserved.</p>
+            <p class="flex items-center gap-1">
+                Built using Visual Studio Code, and a lot of ☕ Coffee.
+            </p>
+        </div>
+    </footer>
+
+    <!-- External JavaScript File -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
